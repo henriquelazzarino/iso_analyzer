@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+audit-output/
+.venv/
+venv/
+.idea/
+.vscode/
+*.egg-info/
+build/
+dist/
+.tmp_clones/
+tools/
