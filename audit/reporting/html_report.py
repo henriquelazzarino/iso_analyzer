@@ -14,11 +14,11 @@ def _e(value: Any) -> str:
 
 def _status_color(status: str) -> str:
     s = (status or "").upper()
-    if "REPROVADO" in s:
+    if "NÃO CONFORME" in s:
         return "#c0392b"
     if "RESSALV" in s:
         return "#d68910"
-    if "APROVADO" in s:
+    if "CONFORME" in s:
         return "#1e8449"
     return "#566573"
 

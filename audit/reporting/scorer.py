@@ -58,11 +58,11 @@ def _performance(report: AuditReport) -> float:
 
 
 def _verdict(overall: float) -> str:
-    if overall >= 75:
-        return "APROVADO"
-    if overall >= 55:
-        return "APROVADO COM RESSALVAS"
-    return "REPROVADO"
+    if overall >= 80:
+        return "CONFORME"
+    if overall >= 60:
+        return "CONFORME COM RESSALVAS"
+    return "NÃO CONFORME"
 
 
 def _alerts(report: AuditReport) -> List[str]:

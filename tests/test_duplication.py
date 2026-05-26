@@ -44,8 +44,8 @@ class ScorerTests(unittest.TestCase):
         r.coupling = CouplingResult(average=25)
         r.coverage = CoverageResult(detected_framework="none")
         score = scorer.score(r)
-        self.assertEqual(score.status, "REPROVADO")
-        self.assertLess(score.overall, 55)
+        self.assertEqual(score.status, "NÃO CONFORME")
+        self.assertLess(score.overall, 60)
 
     def test_approved_when_clean(self):
         r = AuditReport()
@@ -55,7 +55,7 @@ class ScorerTests(unittest.TestCase):
                                     executed=True, success=True,
                                     line_coverage=85, branch_coverage=75)
         score = scorer.score(r)
-        self.assertIn(score.status, ("APROVADO", "APROVADO COM RESSALVAS"))
+        self.assertIn(score.status, ("CONFORME", "CONFORME COM RESSALVAS"))
 
 
 if __name__ == "__main__":

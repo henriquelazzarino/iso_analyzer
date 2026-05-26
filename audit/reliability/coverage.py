@@ -1,26 +1,53 @@
 """Coverage extraction — prefers JaCoCo XML reports under target/site or build/reports."""
 from __future__ import annotations
 
+import os
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import List, Optional, Tuple
 
 from ..core import get_logger
-from ..utils import walk_files
 
 log = get_logger()
 
 
-_JACOCO_NAMES = ("jacoco.xml", "jacocoTestReport.xml")
+_JACOCO_NAMES = {"jacoco.xml", "jacocoTestReport.xml"}
+
+# Known paths where JaCoCo generates XML reports
+_KNOWN_JACOCO_PATHS = [
+    "target/site/jacoco/jacoco.xml",
+    "target/site/jacoco-ut/jacoco.xml",
+    "target/site/jacoco-it/jacoco.xml",
+    "build/reports/jacoco/test/jacocoTestReport.xml",
+    "build/reports/jacoco/jacocoTestReport.xml",
+]
 
 
 def find_jacoco_reports(root: Path) -> List[Path]:
+    """Find JaCoCo XML reports. Uses a dedicated walk that does NOT skip
+    target/build directories, since that's exactly where JaCoCo outputs live."""
     out: List[Path] = []
-    for f in walk_files(root, [".xml"]):
-        if f.name in _JACOCO_NAMES:
-            out.append(f)
-            continue
-        # JaCoCo HTML may not help; we want XML. Also accept generic name 'jacoco.xml'.
+
+    # 1. Check well-known paths first (fast, no full walk needed)
+    for rel in _KNOWN_JACOCO_PATHS:
+        candidate = root / rel
+        if candidate.is_file():
+            out.append(candidate)
+
+    # 2. Also check submodules (multi-module Maven/Gradle projects)
+    #    Walk the tree including target/build dirs, but only look for jacoco XMLs
+    for dirpath, dirnames, filenames in os.walk(str(root)):
+        # Skip VCS/IDE dirs but NOT build output dirs
+        dirnames[:] = [
+            d for d in dirnames
+            if not d.startswith(".") and d not in {"node_modules", "__pycache__", ".tmp_clones"}
+        ]
+        for fn in filenames:
+            if fn in _JACOCO_NAMES:
+                p = Path(dirpath) / fn
+                if p not in out:
+                    out.append(p)
+
     return out
 
 

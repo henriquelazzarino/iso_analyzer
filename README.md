@@ -156,9 +156,9 @@ audit-output/
 
 | Score | Veredicto |
 |---|---|
-| >= 75 | APROVADO |
-| 55 – 74 | APROVADO COM RESSALVAS |
-| < 55 | REPROVADO |
+| >= 80 | CONFORME |
+| 60 – 79 | CONFORME COM RESSALVAS |
+| < 60 | NÃO CONFORME |
 
 ### Dimensoes ISO 25010 avaliadas
 

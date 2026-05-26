@@ -37,7 +37,7 @@ class IntegrationTests(unittest.TestCase):
             self.assertGreaterEqual(report.classes_analyzed, 4)
             self.assertGreaterEqual(report.methods_analyzed, 5)
             self.assertIn(report.score.status,
-                          ("APROVADO", "APROVADO COM RESSALVAS", "REPROVADO"))
+                          ("CONFORME", "CONFORME COM RESSALVAS", "NÃO CONFORME"))
 
             # Files produced
             self.assertTrue((out_dir / "metrics.json").exists())
