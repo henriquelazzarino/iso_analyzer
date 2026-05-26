@@ -20,7 +20,7 @@ from pathlib import Path
 from audit.core import setup_logger, AuditOptions, run
 from audit.utils.tools import tools_status, detect_java_home
 
-_MAVEN_VERSION = "3.9.9"
+_MAVEN_VERSION = "3.9.16"
 _MAVEN_ZIP_URL = (
     f"https://dlcdn.apache.org/maven/maven-3/{_MAVEN_VERSION}/binaries/"
     f"apache-maven-{_MAVEN_VERSION}-bin.zip"
