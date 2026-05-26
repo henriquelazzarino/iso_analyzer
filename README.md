@@ -1,4 +1,5 @@
 # ISO/IEC 25010 Audit Tool — Java
+Made by Henrique A Lazzarino and Vitor Manoel Alves de Andrade
 
 > Ferramenta automatica de auditoria de qualidade para repositorios Java,
 > baseada na norma **ISO/IEC 25010**. Recebe uma URL Git ou caminho local,
